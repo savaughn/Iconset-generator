@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// TODO: Get all of this out of main.c
+
 typedef struct
 {
     GtkWidget *window;
@@ -29,13 +31,12 @@ void resize_images(AppWidgets *widgets)
     char output_dir[1024];
     snprintf(output_dir, sizeof(output_dir), "%s/generated", g_path_get_dirname(widgets->file_path));
     g_mkdir_with_parents(output_dir, 0755);
-    g_print("Output dir: %s\n", output_dir);
-    g_print("File path: %s\n", widgets->file_path); 
 
     for (int i = 0; i < 10; i++)
     {
         if (gtk_check_button_get_active(GTK_CHECK_BUTTON(widgets->checkboxes[i])))
         {
+            // TODO: Integrate this with the ImageMagick API instead of using system()
             snprintf(command, sizeof(command), "magick \"%s\" -resize %sx%s! \"%s/%s.png\"",
                      widgets->file_path, sizes[i * 2 + 1], sizes[i * 2 + 1], output_dir, sizes[i * 2]);
             system(command);
@@ -67,7 +68,7 @@ static gboolean on_file_dropped(GtkDropTarget *target, const GValue *value,
     for (GSList *l = list; l != NULL; l = l->next)
     {
         GFile *file = l->data;
-        // g_print("%s\n", g_file_get_path(file));
+        // TODO: obvi only 1 file dropped at a time rn
         widgets->file_path = g_file_get_path(file);
     }
 
@@ -99,7 +100,8 @@ void activate(GtkApplication *app, gpointer user_data)
     g_signal_connect(target, "drop", G_CALLBACK(on_file_dropped), widgets);
     gtk_widget_add_controller(GTK_WIDGET(widgets->window), GTK_EVENT_CONTROLLER(target));
 
-    //     // Apply CSS to the drop target area
+    // TODO: Add on_enter and on_leave signals to change the background color of the drop target 
+
     GtkCssProvider *provider = gtk_css_provider_new();
     const char *drop_target_css = "#drop-target { background-color: #333333; }";
     gtk_css_provider_load_from_string(provider, drop_target_css);
@@ -116,6 +118,9 @@ void activate(GtkApplication *app, gpointer user_data)
         widgets->checkboxes[i] = gtk_check_button_new_with_label(sizes[i * 2]);
         gtk_grid_attach(GTK_GRID(widgets->grid), widgets->checkboxes[i], i % 2, i / 2, 1, 1);
     }
+
+    // TODO: Add a select all and deselect all button
+    // TODO: Add a button to open the generated directory
 
     GtkWidget *button = gtk_button_new_with_label("Resize Images");
     g_signal_connect_swapped(button, "clicked", G_CALLBACK(resize_images), widgets);

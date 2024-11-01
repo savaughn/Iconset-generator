@@ -19,9 +19,16 @@ Iconset Generator is a GUI tool for creating macOS iconsets for applications. It
 
 ## Requirements
 
-- macOS
+macOS 10.13 or later (Apple Silicon)
 
 ## Installation
+
+ImageMagick is required for image processing.
+To install ImageMagick, use the following command:
+
+```sh
+brew install imagemagick
+```
 
 Download the latest version from the [releases page](https://github.com/yourusername/iconset-generator/releases).
 
