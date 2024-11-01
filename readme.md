@@ -2,6 +2,8 @@
 
 Iconset Generator is a GUI tool for creating macOS iconsets for applications. It features a drag-and-drop interface that allows you to select which image sizes you want to include in your iconset.
 
+![image](https://github.com/user-attachments/assets/210f3414-066c-4af1-a7e9-7bd2ca71fdfe)
+
 ## Features
 
 - Drag-and-drop interface
