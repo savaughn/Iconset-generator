@@ -1,4 +1,5 @@
 # Iconset Generator
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ncorgan/iconset-generator/blob/master/LICENSE.txt) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/savaughn/iconset-generator)](https://github.com/savaughn/iconset-generator/releases) [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/savaughn/iconset-generator/macos.yml?branch=master)](https://github.com/savaughn/iconset-generator/actions) [![GitHub issues](https://img.shields.io/github/issues/savaughn/iconset-generator)](https://github.com/savaughn/iconset-generator/issues) [![GitHub all releases](https://img.shields.io/github/downloads/savaughn/iconset-generator/total)](https://github.com/savaughn/iconset-generator/releases)
 
 Iconset Generator is a GUI tool for creating macOS iconsets for applications. It features a drag-and-drop interface that allows you to select which image sizes you want to include in your iconset.
 
