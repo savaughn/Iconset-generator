@@ -1,0 +1,48 @@
+name: Build MacOS
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-14]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: install cppcheck
+      run: brew install cppcheck
+    
+    - name: Run cppcheck
+      run: |
+        cppcheck --std=c11 --enable=all --inconclusive --suppress=missingInclude --suppress=missingIncludeSystem src/ || true
+        
+    - name: Set up script permissions
+      run: chmod +x ./setup_macos.sh
+
+    - name: install dependencies
+      run: ./setup_macos.sh
+
+    - name: make
+      run: make
+
+    - name: set up bundle script
+      run: chmod +x ./bundle_macos_app.sh
+
+    - name: Bundle into macOS app
+      run: ./bundle_macos_app.sh
+
+    - name: Create dmg installer
+      run: make dmg
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Iconset-Generator-${{ matrix.os == 'macos-14' && 'arm-14.0-minimum' || 'x86-12.0-minimum' }}
+        path: build/
